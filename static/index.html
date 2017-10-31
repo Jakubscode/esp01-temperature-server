@@ -86,7 +86,7 @@
 
         window.onload = function() {
             var ctx = document.getElementById("canvas").getContext("2d");
-            fetch('http://' + location.host+ '/data')
+            fetch('https://' + location.host+ '/data')
             .then(res => res.json())
             .then((data) => {
                 console.log(data)
