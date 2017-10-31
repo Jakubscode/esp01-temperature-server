@@ -6,8 +6,8 @@ var app = express();
 const read = () => {
 	return JSON.parse(require('fs').readFileSync('./temperature.json', 'utf8'))
 }
-
-app.get("/", (req, res) => {
+app.use('/', express.static('static'))
+app.get("/data", (req, res) => {
 	let array = read()
 	res.json(array)
 })
@@ -23,7 +23,12 @@ app.get("/saveTemperature", (req, res) => {
 	if (array.constructor != Array) {
 		array = []
 	}
-	array.push(req.query)
+	const data = {
+		in : req.query.in,
+		out : req.query.out,
+		date : Date.now()
+	}
+	array.push(data)
 	require('fs').writeFileSync('./temperature.json', JSON.stringify(array))
 })
 
