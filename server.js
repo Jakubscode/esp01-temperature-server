@@ -10,7 +10,9 @@ app.get("/", (req, res) => {
 app.get('/reset', (req, res) => {
 	if (req.query.pass == '997') {
 		require('fs').writeFileSync('./temperature.json', JSON.stringify([]))
+		res.send('1')
 	}
+	res.send('0')
 })
 app.get("/saveTemperature", (req, res) => {
 	let array = require('./temperature.json')
