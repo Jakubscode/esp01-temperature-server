@@ -4,7 +4,7 @@ const net = require('net')
 var app = express();
 
 app.get("/", (req, res) => {
-	let array = require('./temperature.json')
+	let array = require('fs').readFileSync('./temperature.json')
 	res.json(array)
 })
 app.get('/reset', (req, res) => {
@@ -15,7 +15,7 @@ app.get('/reset', (req, res) => {
 	res.send('0')
 })
 app.get("/saveTemperature", (req, res) => {
-	let array = require('./temperature.json')
+	let array = require('fs').readFileSync('./temperature.json')
 	if (array.constructor != Array) {
 		array = []
 	}
