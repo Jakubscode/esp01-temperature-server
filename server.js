@@ -3,8 +3,12 @@ const express = require('express')
 const net = require('net')
 var app = express();
 
+const read = () => {
+	return JSON.parse(require('fs').readFileSync('./temperature.json', 'utf8'))
+}
+
 app.get("/", (req, res) => {
-	let array = require('fs').readFileSync('./temperature.json')
+	let array = read()
 	res.json(array)
 })
 app.get('/reset', (req, res) => {
@@ -15,7 +19,7 @@ app.get('/reset', (req, res) => {
 	res.send('0')
 })
 app.get("/saveTemperature", (req, res) => {
-	let array = require('fs').readFileSync('./temperature.json')
+	let array = read()
 	if (array.constructor != Array) {
 		array = []
 	}
