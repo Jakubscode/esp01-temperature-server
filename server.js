@@ -2,7 +2,7 @@ const http = require('http')
 const express = require('express')
 const net = require('net')
 var app = express();
-
+const config = require('./config.json')
 const read = () => {
 	return JSON.parse(require('fs').readFileSync('./temperature.json', 'utf8'))
 }
@@ -12,7 +12,7 @@ app.get("/data", (req, res) => {
 	res.json(array)
 })
 app.get('/reset', (req, res) => {
-	if (req.query.pass == '997') {
+	if (req.query.pass == config.pass) {
 		require('fs').writeFileSync('./temperature.json', JSON.stringify([]))
 		res.send('1')
 	}
@@ -32,5 +32,5 @@ app.get("/saveTemperature", (req, res) => {
 	require('fs').writeFileSync('./temperature.json', JSON.stringify(array))
 })
 
-app.listen(process.env.PORT || 80)
+app.listen(90)
 
